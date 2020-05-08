@@ -116,5 +116,5 @@ for iRegionList in range(len(RegionList)):
 	c1.cd()
 	c1.Modified()
 	c1.Update()
-	c1.SaveAs("pre_post_data_comparison_region.pdf")
+	c1.SaveAs("pre_post_data_comparison_region"+RegionList[iRegionList]+".pdf")
 	#c1.SaveAs(RegionList[iRegionList]"_postfit_prefit.png")
