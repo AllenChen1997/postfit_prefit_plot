@@ -1,8 +1,11 @@
 #created by Fasya Khuzaimah on 2020.05.01
 #re-edit by Kung-Hsiang on 2020.05.08
-
+import sys
 import ROOT
+ROOT.gROOT.SetBatch(True)
+sys.argv.append( '-b-' )
 from ROOT import TFile, TH1F, TGraph, TGraphAsymmErrors
+
 
 import PlotTemplates
 from PlotTemplates import *
@@ -10,8 +13,8 @@ from PlotTemplates import *
 import array as arr
 
 RegionList = ['SR', 'TOPE', 'TOPMU', 'WE', 'WMU', 'ZEE', 'ZMUMU']
-RegionName = ['SR', 'Top (e) CR', 'Top (#mu) CR', 
-              'W (e) CR', 'W (#mu) CR', 'Z (ee) CR', 'Z (#mu#mu) CR']
+RegionName = ['SR', 'Top (e) CR', 'Top (mu) CR', 
+              'W (e) CR', 'W (mu) CR', 'Z (ee) CR', 'Z (mumu) CR']
 nbins = 4
 edges = arr.array('f')
 min = 0.0
@@ -113,5 +116,5 @@ for iRegionList in range(len(RegionList)):
 	c1.cd()
 	c1.Modified()
 	c1.Update()
-	#c1.SaveAs("Tope_test.pdf")
-	c1.SaveAs(RegionList[iRegionList]"_postfit_prefit.png")
+	c1.SaveAs("pre_post_data_comparison_region.pdf")
+	#c1.SaveAs(RegionList[iRegionList]"_postfit_prefit.png")
