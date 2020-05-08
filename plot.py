@@ -65,7 +65,7 @@ c1 = PlotTemplates.myCanvas()
 h_topepostfit = PlotTemplates.Save1DHisto(Topepostfit, c1, "P^{miss}_{T}", "Events")
 h_topepostfit.SetLineColor(2)
 h_topeprefit = PlotTemplates.Save1DHisto(Topeprefit, c1, "P^{miss}_{T}", "Events")
-h_topeprefit.SetLineColor(3)
+h_topeprefit.SetLineColor(4)
 h_data = PlotTemplates.Save1DHisto(dataTope, c1, "P^{miss}_{T}", "Events")
 h_data.SetMarkerStyle(20)
 
@@ -83,6 +83,21 @@ text = ROOT.TLatex()
 text.SetTextFont(42)
 text.SetTextSize(0.05)
 text.DrawLatex(700,5,"Top (e) CR ")
+
+E1 = PlotTemplates.drawenergy(is2017 = True, data=True)
+# 1 = CMS , change 2 = Internal, change 3 = 41fb-1(13TeV)
+count = 0
+text2 = 'Internal'
+text3 = '41 fb^{-1} (13 TeV)'
+for i in E1:
+	count = count + 1
+	if ( count == 2 ):
+		i.Clear()
+		i.AddText(0.215,0.4,text2)
+	if ( count == 3 ):
+		i.Clear()
+		i.AddText(0.7,0.5,text3)
+	i.Draw()
 
 c1.cd()
 c1.Modified()
