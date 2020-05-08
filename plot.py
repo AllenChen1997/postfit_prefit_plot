@@ -83,32 +83,7 @@ text = ROOT.TLatex()
 text.SetTextFont(42)
 text.SetTextSize(0.05)
 text.DrawLatex(700,5,"Top (e) CR ")
-'''
-h_yieldratioTopeData = PlotTemplates.Save1DHisto(Topepostfit, c1, "Recoil", "Yield Ratio (TopE/tt)")
-h_yieldratioTopeData.SetMaximum(max)
-h_yieldratioTopeData.SetMinimum(min)
-h_yieldratioTopeData.SetMarkerStyle(20)
-h_yieldratioTopeData.SetLineWidth(1)
 
-h_yieldratioTopeMC = PlotTemplates.Save1DHisto(yieldratioTopeMC, c1, "Recoil", "Yield Ratio (TopE/tt)")
-h_yieldratioTopeMC.SetMaximum(max)
-h_yieldratioTopeMC.SetMinimum(min)
-#h_yieldratioTopeMC.SetMarkerStyle(20)
-#h_yieldratioTopeMC.SetMarkerColor(2)
-h_yieldratioTopeMC.SetLineColor(2)
-h_yieldratioTopeMC.SetLineWidth(1)
-
-h_yieldratioTopeMC.Draw("e1")
-h_yieldratioTopeData.Draw("e1same")
-
-leg1 = PlotTemplates.SetLegend(coordinate_=[.15,.7,.47,.87])
-leg1.AddEntry(h_yieldratioTopeMC, "MC")
-leg1.AddEntry(yieldratioTopeData, "Data")
-leg1.Draw()
-E1 = PlotTemplates.drawenergy(is2017 = True, data=True)
-for i in E1:
-    i.Draw()
-'''
 c1.cd()
 c1.Modified()
 c1.Update()
