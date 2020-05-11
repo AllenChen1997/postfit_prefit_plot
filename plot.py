@@ -96,7 +96,10 @@ for iRegionList in range(len(RegionList)):
 	text = ROOT.TLatex()
 	text.SetTextFont(42)
 	text.SetTextSize(0.05)
-	text.DrawLatex(400,5.5,RegionName[iRegionList])
+	#decide where to put the text
+	placeX = h_postfit.GetXaxis().GetXmin() + 0.25 * (h_postfit.GetXaxis().GetXmax() - h_postfit.GetXaxis().GetXmin())
+	placeY = 0.95 * h_postfit.GetMaximum()
+	text.DrawLatex(placeX,placeY,RegionName[iRegionList])
 
 	E1 = PlotTemplates.drawenergy(is2017 = True, data=True)
 	# 1 = CMS , change 2 = Internal, change 3 = 41fb-1(13TeV)
@@ -116,5 +119,10 @@ for iRegionList in range(len(RegionList)):
 	c1.cd()
 	c1.Modified()
 	c1.Update()
-	c1.SaveAs("pre_post_data_comparison_region"+RegionList[iRegionList]+".pdf")
-	#c1.SaveAs(RegionList[iRegionList]"_postfit_prefit.png")
+	#c1.SaveAs("pre_post_data_comparison_region"+RegionList[iRegionList]+".pdf")
+	if (iRegionList == 0):	
+		c1.SaveAs("pre_post_data_comparison.pdf(","pdf")
+	elif ( iRegionList == len(RegionList)-1 ):
+		c1.SaveAs("pre_post_data_comparison.pdf)","pdf")
+	else:
+		c1.SaveAs("pre_post_data_comparison.pdf","pdf")
