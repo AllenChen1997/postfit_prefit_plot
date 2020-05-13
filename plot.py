@@ -68,14 +68,11 @@ for iRegionList in range(len(RegionList)):
 	
 	# check the maximum of three histo	
 	hmax = h_postfit.GetMaximum()
-	print 'hmax= ',hmax
 	if (hmax < h_prefit.GetMaximum()):
 		hmax = h_prefit.GetMaximum()
-		print 'hmax= ',hmax
 	if (hmax < h_data.GetMaximum()):
 		hmax = h_data.GetMaximum()
-		print 'hmax= ',hmax
-	h_postfit.SetMaximum(hmax)
+	h_postfit.SetMaximum(hmax*1.1)
 		
 	h_postfit.Draw("HIST E")
 	h_prefit.Draw("SAME HIST E")
