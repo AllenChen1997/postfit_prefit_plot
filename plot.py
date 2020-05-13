@@ -17,22 +17,19 @@ RegionName = ['SR', 'Top (e) CR', 'Top (mu) CR',
               'W (e) CR', 'W (mu) CR', 'Z (ee) CR', 'Z (mumu) CR']
 nbins = 4
 edges = arr.array('f')
-min = 0.0
-max = 10.0
-file = TFile("fitDiagnostics.root")
+filename = TFile("fitDiagnostics.root")
 
 for iRegionList in range(len(RegionList)):
 #------------------------ postfit ------------------------------#
 
 	postfit = "shapes_fit_b/"+RegionList[iRegionList]
-	#getDir = file.cd("shapes_fit_b/TOPE")
 
 	#get the histogram inside shapes_fit_b/TOPE
 
-	Temp_postfit = file.Get(postfit+"/total_background")
+	Temp_postfit = filename.Get(postfit+"/total_background")
 	Temp_postfit.SetTitle("post-fit")
 
-	Datatmp = file.Get(postfit+"/data")
+	Datatmp = filename.Get(postfit+"/data")
 	Temp_data = Temp_postfit.Clone("data")
 	Temp_data.Reset()
 	nPointsTope = Datatmp.GetN()
@@ -49,23 +46,9 @@ for iRegionList in range(len(RegionList)):
 	prefit = "shapes_prefit/"+RegionList[iRegionList]
 	#get the histogram inside shapes_fit_b/TOPE
 
-	Temp_prefit = file.Get(prefit+"/total_background")
+	Temp_prefit = filename.Get(prefit+"/total_background")
 	Temp_prefit.SetTitle("pre-fit")
 
-	'''
-	Datatmp2 = file.Get(prefit+"data")
-	Temp_data2 = Temp_prefit.Clone("data")
-	Temp_data2.Reset()
-	nPointsTope = Datatmp2.GetN()
-	x = ROOT.Double(0)
-	y = ROOT.Double(0)
-	for i in range(nPointsTope):
-		Datatmp2.GetPoint(i, x, y)
-		k = Temp_data2.FindFixBin(x)
-		#print "y", y
-		Temp_data2.SetBinContent(k, y)
-		Temp_data2.SetBinError(i+1, Datatmp2.GetErrorY(i))
-'''
 	#----------------------postfit prefit plot--------------------------#
 
 	c1 = PlotTemplates.myCanvas()
@@ -82,7 +65,18 @@ for iRegionList in range(len(RegionList)):
 	h_prefit.SetLineColor(4)
 	h_data = PlotTemplates.Save1DHisto(Temp_data, c1, "p^{miss}_{T}", "Events")
 	h_data.SetMarkerStyle(20)
-
+	
+	# check the maximum of three histo	
+	hmax = h_postfit.GetMaximum()
+	print 'hmax= ',hmax
+	if (hmax < h_prefit.GetMaximum()):
+		hmax = h_prefit.GetMaximum()
+		print 'hmax= ',hmax
+	if (hmax < h_data.GetMaximum()):
+		hmax = h_data.GetMaximum()
+		print 'hmax= ',hmax
+	h_postfit.SetMaximum(hmax)
+		
 	h_postfit.Draw("HIST E")
 	h_prefit.Draw("SAME HIST E")
 	h_data.Draw("SAME")
